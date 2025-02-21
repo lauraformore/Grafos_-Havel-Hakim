@@ -1,4 +1,61 @@
-total = 76
-Data = "Dias"
-for i in range(total):
-    print("Han pasado "+ str(i) + Data)
+def Ordenar(Vector_x):
+    n = len(Vector_x)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if Vector_x[j] < Vector_x[j + 1]:
+                Vector_x[j], Vector_x[j + 1] = Vector_x[j + 1], Vector_x[j]
+
+def Eliminar(Vector_x):
+    try:
+        if len(Vector_x) == 0:
+            return
+        primer_elemento = Vector_x[0]
+
+        for i in range(1, min(primer_elemento + 1, len(Vector_x))):
+            Vector_x[i] -= 1
+       
+        Vector_x.pop(0)
+       
+        Ordenar(Vector_x)
+        Escribir(Vector_x)
+
+    except IndexError:
+        print("IndexError: La secuencia no existe.")
+
+def Procedimiento(Vector_x):
+    try:
+        Ordenar(Vector_x)
+        Escribir(Vector_x)
+        while True:
+            # Verificar elementos negativos
+            if any(x < 0 for x in Vector_x):
+                return False  # No existe
+            # Verificar si todos son cero
+            if all(x == 0 for x in Vector_x):
+                return True  # Existe
+            # Verificar suma par
+            if sum(Vector_x) % 2 != 0:
+                return False  # No existe
+            # Aplicar eliminación
+            Eliminar(Vector_x)
+    except IndexError:
+        print("IndexError durante el procedimiento.")
+        return False
+
+def Escribir(Vector_x):
+    print("\t".join(map(str, Vector_x)))
+
+
+while True:
+    Secuencia = input("Ingrese la secuencia:  ")
+    if Secuencia.isdigit():
+        Vector = [int(c) for c in Secuencia]
+        break
+    else:
+        print("Ingrese solo dígitos positivos.")
+
+
+if Procedimiento(Vector):
+    print("Sí existe")
+else:
+    print("No existe")
