@@ -1,0 +1,4 @@
+total = 76
+Data = "Dias"
+for i in range(total):
+    print("Han pasado "+ str(i) + Data)
